@@ -11,17 +11,77 @@ fridge_items = []
 
 # Expiration dates should come in the form MM-DD-YYYY
 
+# Add Ingredient
+# Add an ingredient to the fridge   
 def add_ingredient(item_name, quantity, expiration_date):
     expiration_date = expiration_date.split("/")
     expiration_date = Date(expiration_date[0], expiration_date[1], expiration_date[2])
     new_ingredient = Ingredient(item_name, quantity, expiration_date)
     fridge_items.append(new_ingredient)
 
+# Print Fridge
+# Print all items in the fridge
 def print_fridge():
-    for ingredient in fridge_items:
-        print(ingredient)
+    print()
+    print("Fridge List")
+    for index, ingredient in enumerate(fridge_items, start=1):
+        print(f"({index}) {ingredient}")
+    print()
 
-add_ingredient("Egg", 12, "3/15/2021")
-add_ingredient("Milk", 1, "3/16/2021")
+# Add Ingredient Prompt
+# If the quantity is not a number or is less than 0, print "Invalid Quantity"
+# If the expiration date is not in the correct format, print "Invalid Date Format"
+def add_ingredient_prompt():
+    item_name = input("Enter Item Name: ")
+    quantity = input("Enter Quantity: ")
+    if (quantity.isdigit() == False or int(quantity) < 0):
+        print("Invalid Quantity")
+        return
+    expiration_date = input("Enter Expiration Date (MM/DD/YYYY): ")
+    if (expiration_date.count("/") != 2):
+        print("Invalid Date Format")
+        return
+    add_ingredient(item_name, quantity, expiration_date)
 
-print_fridge()
+# Remove Ingredient by Index
+# If the index is invalid, print "Invalid Index"
+def remove_ingredient_prompt():
+    print_fridge()
+    index = int(input("Enter the index of the item you want to remove: "))
+    if (index < 0 or index > len(fridge_items)):
+        print("Invalid Index")
+    else:
+        fridge_items.pop(index - 1)
+
+# User Interface: Display options to the user
+# 1. Add Ingredients To Fridge  (Add Ingredient Name, Quantity, Expiration Date)
+# 2. Remove Ingredients From Fridge (Remove Ingredient by Index)
+# 3. Print Fridge (Prints all ingredients in the fridge)
+# 4. Exit (Exits the program)
+def user_interface():
+    while True:
+        print("(1) Add Ingredients To Fridge")
+        print("(2) Remove Ingredients From Fridge")
+        print("(3) Print Fridge")
+        print("(4) Exit")
+        in_ret = input("Enter Choice: ")
+        if in_ret == "1":
+            while True:
+                add_ingredient_prompt()
+                add_more = input("Would you like to add more ingredients? (y/n): ")
+                if add_more == "n":
+                    break
+        elif in_ret == "2":
+            while True:
+                remove_ingredient_prompt()
+                add_more = input("Would you like to remove more ingredients? (y/n): ")
+                if add_more == "n":
+                    break
+        elif in_ret == "3":
+            print_fridge()
+        elif in_ret == "4":
+            break
+        else:
+            print("Invalid Input")
+        
+user_interface()
