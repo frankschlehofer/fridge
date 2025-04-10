@@ -1,5 +1,6 @@
 # fridge_app.py
 
+import json
 from Ingredient import Ingredient
 from Date import Date
 
@@ -18,6 +19,7 @@ def add_ingredient(item_name, quantity, expiration_date):
     expiration_date = Date(expiration_date[0], expiration_date[1], expiration_date[2])
     new_ingredient = Ingredient(item_name, quantity, expiration_date)
     fridge_items.append(new_ingredient)
+    save_data()
 
 # Print Fridge
 # Print all items in the fridge
@@ -52,6 +54,28 @@ def remove_ingredient_prompt():
         print("Invalid Index")
     else:
         fridge_items.pop(index - 1)
+        save_data()
+
+# Save data to JSON file
+def save_data():
+    with open('fridge_data.json', 'w') as f:
+        json.dump([{
+            'name': ingredient.name,
+            'quantity': ingredient.quantity,
+            'expiration_date': ingredient.expiration_date.to_dict()
+        } for ingredient in fridge_items], f)
+
+# Load data from JSON file3
+def load_data():
+    try:
+        with open('fridge_data.json', 'r') as f:
+            data = json.load(f)
+            for item in data:
+                expiration_date = Date(item['expiration_date']['month'], item['expiration_date']['day'], item['expiration_date']['year'])
+                ingredient = Ingredient(item['name'], item['quantity'], expiration_date)
+                fridge_items.append(ingredient)
+    except FileNotFoundError:
+        pass
 
 # User Interface: Display options to the user
 # 1. Add Ingredients To Fridge  (Add Ingredient Name, Quantity, Expiration Date)
@@ -59,6 +83,7 @@ def remove_ingredient_prompt():
 # 3. Print Fridge (Prints all ingredients in the fridge)
 # 4. Exit (Exits the program)
 def user_interface():
+    load_data()
     while True:
         print("(1) Add Ingredients To Fridge")
         print("(2) Remove Ingredients From Fridge")
@@ -72,11 +97,14 @@ def user_interface():
                 if add_more == "n":
                     break
         elif in_ret == "2":
-            while True:
-                remove_ingredient_prompt()
-                add_more = input("Would you like to remove more ingredients? (y/n): ")
-                if add_more == "n":
-                    break
+            if len(fridge_items) == 0:
+                print("Fridge is empty")
+            else:
+                while True:
+                    remove_ingredient_prompt()
+                    add_more = input("Would you like to remove more ingredients? (y/n): ")
+                    if add_more == "n":
+                        break
         elif in_ret == "3":
             print_fridge()
         elif in_ret == "4":
