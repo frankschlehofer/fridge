@@ -1,11 +1,13 @@
+import { useState } from 'react'
+
 function IngredientCard({ ingredient, onDelete }) {
   return (
     <div
       style={{
         border: '1px solid #ccc',
         borderRadius: '8px',
-        width: '150px',
-        height: '150px',
+        width: '450px',
+        height: '100px',
         margin: '1rem',
         padding: '0.5rem',
         display: 'flex',
@@ -22,7 +24,7 @@ function IngredientCard({ ingredient, onDelete }) {
       </strong>
       <p style={{ margin: '0.5rem 0' }}>Quantity: {ingredient.quantity}</p>
       <p style={{ margin: '0.5rem 0', fontSize: '0.9rem', color: '#555' }}>
-        Expires: {ingredient.expiration}
+        Expires: {new Date(ingredient.expiration).toLocaleDateString()}
       </p>
       <button
         onClick={onDelete}

@@ -8,9 +8,10 @@ function AddItemForm({ onAdd, onClose }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!name || !quantity || !expiration) return
+    console.log({ name, quantity, expiration }) // Debugging
     onAdd({ name, quantity, expiration }) // Pass the new ingredient to onAdd
     setName('')
-    setQuantity('')
+    setQuantity(1)
     setExpiration('')
     onClose() // Close the form
   }
@@ -36,12 +37,14 @@ function AddItemForm({ onAdd, onClose }) {
           onChange={(e) => setName(e.target.value)}
           style={{ display: 'block', marginBottom: '0.5rem' }}
         />
-        <input
-          placeholder="Quantity"
-          value={quantity}
-          onChange={(e) => setQuantity(e.target.value)}
-          style={{ display: 'block', marginBottom: '0.5rem' }}
-        />
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
+          <input
+            placeholder="Quantity"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            style={{ marginRight: '0.5rem' }}
+          />
+        </div>
         <input
           placeholder="Expiration Date (MM/DD/YYYY)"
           value={expiration}

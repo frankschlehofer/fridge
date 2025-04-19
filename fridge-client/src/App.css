@@ -1,0 +1,105 @@
+@font-face {
+    font-family: 'Pineapple';
+    src: url('./assets/fonts/Pineapple.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    color: white;
+    background-color: #F7EBEC;
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+  
+.app-container {
+    text-align: center;
+}
+
+.header-banner {
+    background-color:#DDBDD5; /* Light white-transparent background */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+}
+  
+.app-title {
+    text-align: center;
+    font-size: 10rem;
+    font-weight: bold;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: #1D1E2C;
+    font-family: 'Pineapple', sans-serif;
+}
+
+ 
+  
+/* Fruit icons grouped on either side */
+.fruit-side {
+    display: flex;
+    gap: 0.5rem;
+}
+    
+/* Keeps images crisp and sized */
+.fruit-icon {
+    height: 100px;
+    image-rendering: pixelated;
+}
+  
+
+.content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.fridge-list {
+    flex: 1;
+    flex-direction: column;
+    background-color: #AC9FBB;
+    min-height: calc(100vh - 150px); /* Adjust 150px based on your header height */
+}
+
+.right-column {
+    flex: 1;
+    flex-direction: column;
+    background-color:#899878;
+}
+
+.right-column-header, .fridge-list-header {
+    font-size: 2rem;
+    font-family: 'Pineapple', sans-serif;
+    color: #1D1E2C;
+}
+/* Responsive: stack vertically on smaller screens */
+@media (max-width: 768px) {
+    .main-section {
+      flex-direction: column;
+    }
+  
+    .left-column,
+    .right-column {
+      width: 100%;
+    }
+}
+
+ 
+.nav-button {
+    margin: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #AC9FBB;
+    color: #1D1E2C;
+    cursor: pointer;
+}
+  
+.nav-button:hover {
+    background-color: #59656F;
+}
