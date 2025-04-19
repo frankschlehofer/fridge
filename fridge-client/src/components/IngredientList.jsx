@@ -4,7 +4,7 @@ function IngredientList({ items, onDelete }) {
   return (
     <div className="ingredient-list">
       {items.length === 0 ? (
-        <p style={{ color: '#ccc' }}>No items yet.</p>
+        <p style={{ color: '#ccc' }}>Time to go shopping!.</p>
       ) : (
         items.map((item, index) => (
           <IngredientCard

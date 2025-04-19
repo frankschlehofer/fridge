@@ -11,6 +11,7 @@ import orange from './assets/icons/orange.png';
 import grape from './assets/icons/grape.png';
 import strawberry from './assets/icons/strawberry.png';
 import AddItemForm from './components/AddItemForm';
+import SortingHeader from './components/SortingHeader'
 
 
 function App() {
@@ -27,12 +28,16 @@ function App() {
     )
   }
 
+  const handleSort = (sortedIngredients) => {
+    setIngredients(sortedIngredients);
+  };
+
   return (
     <Router>
       <div className="app-container">
         <div className='header-banner'>
             <div className="fruit-side">
-              <img src={banana} alt="banana" className="fruit-icon" />
+              <img src={banana} alt="banana" className="fruit-icon-shrink" />
               <img src={cherry} alt="cherry" className="fruit-icon" />
               <img src={orange} alt="orange" className="fruit-icon" />
               <img src={grape} alt="grape" className="fruit-icon" />
@@ -43,13 +48,14 @@ function App() {
             <div className="fruit-side">
               <img src={pineapple} alt="pineapple" className="fruit-icon" />
               <img src={apple} alt="apple" className="fruit-icon" />
-              <img src={watermelon} alt="watermelon" className="fruit-icon" />
               <img src={strawberry} alt="strawberry" className="fruit-icon" />
+              <img src={watermelon} alt="watermelon" className="fruit-icon-shrink" />
             </div>
         </div>
         <div className="content">
           <div className="fridge-list">
             <h2 className="fridge-list-header">My Ingredients</h2>
+            <SortingHeader ingredients={ingredients} onSort={handleSort} />
             <IngredientList items={ingredients} onDelete={handleDelete} />
             <AddItemForm onAdd={handleAdd} />
           </div>

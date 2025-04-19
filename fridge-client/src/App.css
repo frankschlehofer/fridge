@@ -50,6 +50,11 @@ body {
     height: 100px;
     image-rendering: pixelated;
 }
+.fruit-icon-shrink {
+    margin-top: 0.6rem;
+    height: 80px;
+    image-rendering: pixelated;
+}
   
 
 .content {
@@ -87,6 +92,43 @@ body {
     }
 }
 
+.sorting-header {
+    display: flex;
+    flex-direction: space-between;
+    gap: 3rem;
+    background-color: #F7EBEC;
+    justify-content: center;
+    align-items: center;
+    padding: 0.25rem;
+    border: 3px solid #1D1E2C;
+    border-radius: 8px;
+    margin-left: 5rem;
+    margin-right: 5rem;
+}
+
+.sorting-header h3 {
+    margin-left: 2rem;
+    font-size: 1.5rem;
+    font-family: 'Pineapple', sans-serif;
+    color: #1D1E2C;
+}
+
+.sorting-header button {
+    margin-right: 2rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-family: 'Pineapple', sans-serif;
+    background-color: #DDBDD5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.sorting-header button:hover {
+    background-color: #DA627D;
+}
+
 .add-item-form {
     display: flex;
     flex-direction: column;
@@ -108,6 +150,7 @@ body {
     border-radius: 8px;
     font-size: 1rem;
     background-color: #F7EBEC;
+    font-family: 'Pineapple', sans-serif;
 }
   
 .add-item-form button {

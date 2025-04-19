@@ -12,6 +12,7 @@ function AddItemForm({ onAdd }) {
     setName('');
     setQuantity('');
     setExpiration('');
+    
   };
 
   return (
