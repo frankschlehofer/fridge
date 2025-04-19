@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import FridgeList from './components/FridgeList'
+import IngredientList from './components/IngredientList'
 import './App.css'
 import cherry from './assets/icons/cherry.png';
 import banana from './assets/icons/banana.png';
@@ -10,6 +10,7 @@ import watermelon from './assets/icons/watermelon.png';
 import orange from './assets/icons/orange.png';
 import grape from './assets/icons/grape.png';
 import strawberry from './assets/icons/strawberry.png';
+import AddItemForm from './components/AddItemForm';
 
 
 function App() {
@@ -49,6 +50,8 @@ function App() {
         <div className="content">
           <div className="fridge-list">
             <h2 className="fridge-list-header">My Ingredients</h2>
+            <IngredientList items={ingredients} onDelete={handleDelete} />
+            <AddItemForm onAdd={handleAdd} />
           </div>
           <div className="right-column">
             <h2 className="right-column-header">Expiring Soon</h2>

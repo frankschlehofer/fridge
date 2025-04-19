@@ -21,7 +21,6 @@ body {
 
 .header-banner {
     background-color:#DDBDD5; /* Light white-transparent background */
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -72,7 +71,7 @@ body {
 }
 
 .right-column-header, .fridge-list-header {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-family: 'Pineapple', sans-serif;
     color: #1D1E2C;
 }
@@ -88,6 +87,75 @@ body {
     }
 }
 
+.add-item-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+  
+.add-item-form h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-family: 'Pineapple', sans-serif;
+    color: #1D1E2C;
+}
+  
+.add-item-form input {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #F7EBEC;
+}
+  
+.add-item-form button {
+    padding: 0.5rem;
+    font-size: 1rem;
+    background-color: #4fc3f7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+.add-item-form button:hover {
+    background-color: #0288d1;
+}
+.ingredient-list {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+  
+.ingredient-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #DDBDD5;
+    border-radius: 8px;
+    padding: 1rem 1rem;
+    color: #1D1E2C;
+    font-size: 1.5rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+  
+.ingredient-card button {
+    background: none;
+    border: none;
+    color: #ff6b6b;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+  
+.ingredient-card button:hover {
+    color: red;
+}
  
 .nav-button {
     margin: 0.5rem;
