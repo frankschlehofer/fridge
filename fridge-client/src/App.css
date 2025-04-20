@@ -17,6 +17,9 @@ body {
   
 .app-container {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the page takes up the full viewport height */
 }
 
 .header-banner {
@@ -60,6 +63,8 @@ body {
 .content {
     display: flex;
     justify-content: space-between;
+    flex: 1; /* Allow content to grow and fill available space */
+    padding-bottom: 10rem; /* Add space below the content */
 }
 
 .fridge-list {
@@ -67,12 +72,14 @@ body {
     flex-direction: column;
     background-color: #AC9FBB;
     min-height: calc(100vh - 150px); /* Adjust 150px based on your header height */
+    border: 5px solid #1D1E2C;
 }
 
 .right-column {
     flex: 1;
     flex-direction: column;
     background-color:#899878;
+    border: 5px solid #1D1E2C;
 }
 
 .right-column-header, .fridge-list-header {
@@ -136,10 +143,11 @@ body {
     padding: 1rem;
     margin-bottom: 1rem;
 }
-  
+
 .add-item-form h3 {
     margin: 0;
     font-size: 1.5rem;
+    text-align: start;
     font-family: 'Pineapple', sans-serif;
     color: #1D1E2C;
 }
@@ -198,6 +206,12 @@ body {
   
 .ingredient-card button:hover {
     color: red;
+}
+
+.ingredient-list p {
+    font-size: 2rem;
+    font-family: 'Pineapple', sans-serif;
+    color: #1D1E2C;
 }
  
 .nav-button {
