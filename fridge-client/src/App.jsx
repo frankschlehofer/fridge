@@ -12,10 +12,16 @@ import grape from './assets/icons/grape.png';
 import strawberry from './assets/icons/strawberry.png';
 import AddItemForm from './components/AddItemForm';
 import SortingHeader from './components/SortingHeader'
+import UseByList from './components/UseByList';
 
 
 function App() {
   const [ingredients, setIngredients] = useState([])
+  const currentDate = new Date();
+  const alreadyExpired = new Date(currentDate);
+  alreadyExpired.setDate(currentDate.getDate() - 1); // Set to yesterday
+  const expiresWithin7 = new Date(currentDate);
+  expiresWithin7.setDate(currentDate.getDate() + 7); // Set to 7 days from now
 
   const handleAdd = (ingredient) => {
     console.log('Adding ingredient:', ingredient) // Debugging
@@ -61,6 +67,13 @@ function App() {
           </div>
           <div className="right-column">
             <h2 className="right-column-header">Expiring Soon</h2>
+            <h3 className="use-by-header">Expired:</h3>
+            <UseByList ingredients={ingredients} useBy={alreadyExpired.toISOString()} />
+            <h3 className="use-by-header">Expires Today:</h3>
+            <UseByList ingredients={ingredients} useBy={currentDate.toISOString()} />
+            <h3 className="use-by-header">Expires Within 7 Days:</h3>
+            <UseByList ingredients={ingredients} useBy={expiresWithin7.toISOString()} />
+
           </div>
         </div>
       </div>
