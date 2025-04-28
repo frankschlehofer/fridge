@@ -27,7 +27,7 @@ function UseByList({ ingredients, useBy }) {
             {
                 filteredIngredients.map((ingredient) => (
                     <div key={ingredient.id} className="ingredient-card-expired">
-                        <p1>{ingredient.name} - {ingredient.expiration}</p1>
+                        <p>{ingredient.name} - {ingredient.expiration}</p>
                     </div>
                 ))
             }

@@ -6,13 +6,13 @@ function IngredientList({ items, onDelete }) {
       {items.length === 0 ? (
         <p style={{ color: '#ccc' }}>Time to go shopping!.</p>
       ) : (
-        items.map((item, index) => (
+        items.map((item) => (
           <IngredientCard
-            key={index}
+            key={item.id}
             name={item.name}
             quantity={item.quantity}
             expiration={item.expiration}
-            onDelete={() => onDelete(index)}
+            onDelete={() => onDelete(item.id)}
           />
         ))
       )}

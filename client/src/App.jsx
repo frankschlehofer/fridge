@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import IngredientList from './components/IngredientList'
 import './App.css'
@@ -19,20 +19,47 @@ function App() {
   const [ingredients, setIngredients] = useState([])
   const currentDate = new Date();
   const alreadyExpired = new Date(currentDate);
-  alreadyExpired.setDate(currentDate.getDate() - 1); // Set to yesterday
+  alreadyExpired.setDate(currentDate.getDate() - 1);
   const expiresWithin7 = new Date(currentDate);
-  expiresWithin7.setDate(currentDate.getDate() + 7); // Set to 7 days from now
+  expiresWithin7.setDate(currentDate.getDate() + 7);
+
+  // Load persistent ingredient data on initial load (indicated by the [] at the end)
+  useEffect(() => {
+    fetch('http://localhost:3000/api/ingredients')
+    .then((response) => response.json())
+    .then((data) => setIngredients(data))
+    .catch((error) => console.log('Error fetching ingredients: ', error))
+  }, []);
 
   const handleAdd = (ingredient) => {
     console.log('Adding ingredient:', ingredient) // Debugging
-    setIngredients((prevIngredients) => [...prevIngredients, ingredient])
-  }
+    //setIngredients((prevIngredients) => [...prevIngredients, ingredient])
+    fetch('http://localhost:3000/api/ingredients', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(ingredient)
+    })
+    .then((response) => response.json())
+    .then((data) => setIngredients(data))
+    .catch((error) => console.log('Error creating new ingredients: ', error))
+  };
 
-  const handleDelete = (index) => {
-    setIngredients((prevIngredients) =>
-      prevIngredients.filter((_, i) => i !== index)
-    )
-  }
+  const handleDelete = (id) => {
+    console.log('Deleting ingredient:', id) // Debugging
+    console.log(`http://localhost:3000/api/ingredients/${id}`);
+    //setIngredients((prevIngredients) => [...prevIngredients, ingredient])
+    fetch(`http://localhost:3000/api/ingredients/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response) => response.json())
+    .then((data) => setIngredients(data))
+    .catch((error) => console.log('Error deleting ingredient: ', error))
+  };
 
   const handleSort = (sortedIngredients) => {
     setIngredients(sortedIngredients);
@@ -81,4 +108,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

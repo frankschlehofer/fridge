@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "Eggs",
+    "quantity": 24,
+    "expiration": "2025-05-09"
+  },
+  {
+    "id": 2,
+    "name": "Milk",
+    "quantity": 1,
+    "expiration": "2025-05-05"
+  },
+  {
+    "id": 3,
+    "name": "Bananas",
+    "quantity": 6,
+    "expiration": "2025-05-05"
+  },
+  {
+    "id": 4,
+    "name": "Cottage Cheese",
+    "quantity": 1,
+    "expiration": "2025-05-09"
+  },
+  {
+    "id": 5,
+    "name": "Greek Yogurt",
+    "quantity": 2,
+    "expiration": "2025-05-06"
+  },
+  {
+    "id": 6,
+    "name": "Raspberries",
+    "quantity": 1,
+    "expiration": "2025-05-05"
+  },
+  {
+    "id": 7,
+    "name": "Blueberries",
+    "quantity": 1,
+    "expiration": "2025-04-30"
+  }
+]
