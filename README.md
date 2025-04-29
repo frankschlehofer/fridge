@@ -16,7 +16,7 @@ Backend:
 - Currently json file for persistence, plans for Postgres db
 
 API:
-- Fetch API to handle simple CRUD requests
+- Defined RESTful API routes, communicated by the client through fetch requests
 
 Resources:
 - Fonts: https://www.1001fonts.com/fruit-fonts.html
