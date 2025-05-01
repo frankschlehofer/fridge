@@ -1,8 +1,18 @@
+@import "tailwindcss";
+
 @font-face {
     font-family: 'Pineapple';
     src: url('./assets/fonts/Pineapple.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+}
+
+@font-face {
+    font-family: 'Ruska';
+    src: url('./assets/fonts/Ruska.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
 
 body {
@@ -270,4 +280,9 @@ body {
   
 .nav-button:hover {
     background-color: #59656F;
+}
+
+.landing-title {
+    font-family: 'Ruska', sans-serif;
+    color: #4E937A
 }
