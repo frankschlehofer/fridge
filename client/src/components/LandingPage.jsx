@@ -1,4 +1,26 @@
+import { useState, useEffect } from "react";
+
+const sentences = [
+    'Track and manage your food with ease.',
+    'Find recipes you\'ll love with ingredients you have.',
+    '"What should I make for dinner?" will never be asked again.',
+    'Connect with your friends and recommend something new'
+];
+
 function LandingPage() {
+    {/* State for determining which message in the cycle to display on screen, related by index*/}
+    const [index, setIndex] = useState(0);
+
+    {/* A looping counter, incrementing the value of index every 8 seconds */}
+    useEffect(() => {
+        const interval = setInterval(() => {
+          setIndex((prev) => (prev + 1) % sentences.length);
+        }, 8000); // every 8 seconds
+      
+        return () => clearInterval(interval); // clean up
+      }, []);
+
+
     return (
         <div>
             <div className="flex flex-col md:flex-row h-screen bg-amber-50">
@@ -14,13 +36,22 @@ function LandingPage() {
                     </div>
                     {/* Box containing our revolving text */}
                     <div className="text-4xl font-sans">
-                        <h2>Track and manage your food with ease.</h2>
-                        <h2>Eating is easy, everything else is hard.</h2>
-                        <h2>"What should I make for dinner?" will never be asked again.</h2>
+                        {sentences.map((text, i) => (
+                            <p
+                            key={i}
+                            className={`absolute w-full transition-all duration-2000 ease-in-out ${
+                                i === index
+                                ? "opacity-100"
+                                : "opacity-0 -translate-x-full"
+                            }`}
+                            >
+                            {text}
+                            </p>
+                        ))}
                     </div>
                     {/* Box containing our image/animation */}
                     <div>
-                        <h3>"Temp image"</h3>
+                        
                     </div>
                 </div>
                 {/* Right half of screen, for displaying login/signup page */}
