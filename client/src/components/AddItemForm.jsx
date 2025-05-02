@@ -3,15 +3,15 @@ import { useState } from 'react';
 function AddItemForm({ onAdd }) {
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState('');
-  const [expiration, setExpiration] = useState('');
+  const [expiration_date, setExpirationDate] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !quantity || !expiration) return;
-    onAdd({ name, quantity, expiration });
+    if (!name || !quantity || !expiration_date) return;
+    onAdd({ name, quantity, expiration_date });
     setName('');
     setQuantity('');
-    setExpiration('');
+    setExpirationDate('');
     
   };
 
@@ -36,8 +36,8 @@ function AddItemForm({ onAdd }) {
       <input
         type="date"
         placeholder="Expiration Date"
-        value={expiration}
-        onChange={(e) => setExpiration(e.target.value)}
+        value={expiration_date}
+        onChange={(e) => setExpirationDate(e.target.value)}
       />
 
       <button type="submit">Add</button>

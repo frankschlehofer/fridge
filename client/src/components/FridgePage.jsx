@@ -15,11 +15,11 @@ import UseByList from './UseByList';
 
 
 function FridgePage() {
-  const [ingredients, setIngredients] = useState([])
+  const [ingredients, setIngredients] = useState([]);
   const currentDate = new Date();
   const alreadyExpired = new Date(currentDate);
-  alreadyExpired.setDate(currentDate.getDate() - 1);
   const expiresWithin7 = new Date(currentDate);
+  alreadyExpired.setDate(currentDate.getDate() - 1);
   expiresWithin7.setDate(currentDate.getDate() + 7);
 
   // Load persistent ingredient data on initial load (indicated by the [] at the end)
@@ -44,10 +44,9 @@ function FridgePage() {
     .catch((error) => console.log('Error creating new ingredients: ', error))
   };
 
-  const handleDelete = (id) => {
-    console.log('Deleting ingredient:', id) // Debugging
-    console.log(`http://localhost:3000/api/ingredients/${id}`);
-    fetch(`http://localhost:3000/api/ingredients/${id}`, {
+  const handleDelete = (ingredient_id) => {
+    console.log(`http://localhost:3000/api/ingredients/${ingredient_id}`);
+    fetch(`http://localhost:3000/api/ingredients/${ingredient_id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'

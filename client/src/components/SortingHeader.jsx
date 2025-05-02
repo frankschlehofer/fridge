@@ -9,8 +9,8 @@ function SortingHeader({ ingredients, onSort }) {
             if (key === 'name') {
                 return a.name.localeCompare(b.name);
             } else if (key === 'expirationDate') {
-                const dateA = new Date(a.expiration);
-                const dateB = new Date(b.expiration);
+                const dateA = new Date(a.expiration_date);
+                const dateB = new Date(b.expiration_date);
                 console.log('Parsed Dates:', { dateA, dateB }); // Debugging
                 return dateA - dateB;
             }

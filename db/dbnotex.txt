@@ -1,0 +1,8 @@
+On startup need to run: brew services start postgresql
+
+psql fridgedb to open CLI for db
+
+Table is created manually
+
+Use pg library to run SQL queries through backend
+

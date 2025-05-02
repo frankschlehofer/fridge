@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "id": 1,
+    "name": "Eggs",
+    "quantity": 12,
+    "expiration": "2025-05-16"
+  }
+]

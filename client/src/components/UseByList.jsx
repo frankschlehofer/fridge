@@ -8,7 +8,7 @@ function UseByList({ ingredients, useBy }) {
     };
 
     const filteredIngredients = ingredients.filter((ingredient) => {
-        const expirationDate = parseLocalDate(ingredient.expiration); // Parse as local date
+        const expirationDate = parseLocalDate(ingredient.expiration_date); // Parse as local date
         expirationDate.setHours(0, 0, 0, 0); // Normalize to midnight
 
         // Compare dates numerically

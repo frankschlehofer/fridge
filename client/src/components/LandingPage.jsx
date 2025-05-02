@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 
+
 const sentences = [
-    'Track and manage your food with ease.',
-    'Find recipes you\'ll love with ingredients you have.',
-    '"What should I make for dinner?" will never be asked again.',
-    'Connect with your friends and recommend something new'
+    'Track and manage your food with ease',
+    'Find recipes you\'ll love with ingredients you have',
+    '"What should I make for dinner?" will never be asked again',
+    'Connect with your friends to recommend something new'
 ];
 
 function LandingPage() {
@@ -19,6 +20,24 @@ function LandingPage() {
       
         return () => clearInterval(interval); // clean up
       }, []);
+
+    
+    {/* For attempting to login */}
+    const handleLogin = (e) => {
+        e.preventDefault();
+    };
+
+    {/* For attempting to signup */}
+    const handleSignup = (e) => {
+        e.preventDefault();
+        
+    };
+
+    {/* For clicking Forgot Password? */}
+    const handleForgot = (e) => {
+        e.preventDefault();
+        
+    };
 
 
     return (
@@ -39,10 +58,10 @@ function LandingPage() {
                         {sentences.map((text, i) => (
                             <p
                             key={i}
-                            className={`absolute w-full transition-all duration-2000 ease-in-out ${
+                            className={`absolute w-full duration-1000 ease-in-out ${
                                 i === index
-                                ? "opacity-100"
-                                : "opacity-0 -translate-x-full"
+                                ? "opacity-100 transition-discrete delay-1000 duration-2000"
+                                : "opacity-0"
                             }`}
                             >
                             {text}
@@ -56,34 +75,40 @@ function LandingPage() {
                 </div>
                 {/* Right half of screen, for displaying login/signup page */}
                 <div className="flex justify-center items-center min-h-screen">
-                    <div className="flex flex-col max-w-md mx-4 md:mx-auto bg-white rounded-2xl shadow-xl p-6 md:p-10">
+                    <form className="flex flex-col max-w-md mx-4 md:mx-auto bg-white rounded-2xl shadow-xl p-6 md:p-10">
                         {/* Email/Username input box */}
                         <div className="mb-4 p-3 border border-gray-300 rounded text-xl font-light">
-                            <label className="block mb-1" htmlFor="email">Email/Username</label>
-                            <input type="text" id="email" className="w-full border-none outline-none" />
+                            <input type="text" id="email" placeholder="Email" className="w-full border-none outline-none" />
                         </div>
-
                         {/* Password input box */}
                         <div className="mb-4 p-3 border border-gray-300 rounded text-xl font-light">
-                            <label className="block mb-1" htmlFor="password">Password</label>
-                            <input type="password" id="password" className="w-full border-none outline-none" />
+                            <input type="password" id="password" placeholder="Password" className="w-full border-none outline-none" />
                         </div>
 
                         {/* Login Button */}
-                        <button className="mb-4 py-3 bg-emerald-500 rounded text-xl text-white font-bold hover:bg-emerald-600 transition">
+                        <button 
+                            className="mb-4 py-3 bg-emerald-500 rounded text-xl text-white font-bold hover:bg-emerald-600 transition"
+                            onClick={() => handleLogin}
+                        >
                             Log In
                         </button>
 
                         {/* Forgot Password */}
-                        <div className="mb-4 text-center text-sm font-medium text-blue-600 hover:underline cursor-pointer">
+                        <button 
+                            className="mb-4 text-center text-sm font-medium text-blue-600 hover:underline cursor-pointer"
+                            onClick={() => handleForgot}
+                        >
                             Forgot Password?
-                        </div>
+                        </button>
 
                         {/* Sign Up */}
-                        <button className="mt-6 py-3 bg-amber-400 rounded text-xl text-white font-bold hover:bg-amber-500 transition">
+                        <button 
+                            className="mt-6 py-3 bg-amber-400 rounded text-xl text-white font-bold hover:bg-amber-500 transition"
+                            onClick={() => handleSignup}    
+                        >
                             Sign Up
                         </button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

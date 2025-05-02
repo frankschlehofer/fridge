@@ -8,11 +8,13 @@ function IngredientList({ items, onDelete }) {
       ) : (
         items.map((item) => (
           <IngredientCard
-            key={item.id}
+            user_id={item.user_id}
+            key={item.ingredient_id}
+            ingredient_id={item.ingredient_id}
             name={item.name}
             quantity={item.quantity}
-            expiration={item.expiration}
-            onDelete={() => onDelete(item.id)}
+            expiration_date={item.expiration_date}
+            onDelete={() => onDelete(item.ingredient_id)}
           />
         ))
       )}
