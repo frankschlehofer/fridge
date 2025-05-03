@@ -1,4 +1,4 @@
-On startup need to run: brew services start postgresql
+On startup need to run: brew services start postgresql@15
 
 psql fridgedb to open CLI for db
 

@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import './App.css'
-import FridgePage from './components/FridgePage'
-import LandingPage from './components/LandingPage';
+import FridgePage from './pages/FridgePage'
+import LandingPage from './pages/LandingPage';
+import SignUpPage from './pages/SignUpPage';
 
 
 function App() {
@@ -16,6 +17,10 @@ function App() {
         <Route
           path='/'
           element={<LandingPage />}
+        />
+        <Route
+          path='/signup'
+          element={<SignUpPage />}
         />
       </Routes>
       <Link to='/fridgepage'>
