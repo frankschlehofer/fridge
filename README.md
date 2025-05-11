@@ -83,8 +83,6 @@ The application utilizes a RESTful API for communication between the frontend an
 
 ## Contributing
 
-[Add your contributing guidelines here.]  For example:
-
 1.  Fork the repository.
 2.  Create a new branch.
 3.  Make your changes.
