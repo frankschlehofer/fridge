@@ -1,7 +1,9 @@
 CREATE TABLE IF NOT EXISTS users (
     user_id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     email varchar(255) NOT NULL UNIQUE,
-    name varchar(255) NOT NULL
+    name varchar(255) NOT NULL,
+    username varchar(255) NOT NULL UNIQUE,
+    password_hash varchar(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS ingredients (

@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import ingredients from './routes/ingredients.js';
+
+import auth from './routes/auth.js'
+import fridgepage from './routes/fridgepage.js';
 import logger from './middleware/logger.js';
 import errorHandler from './middleware/errorHandler.js';
 
@@ -15,8 +17,10 @@ app.use(cors());
 // Middleware to log requests to console
 app.use(logger);
 
+app.use('/api/auth', auth)
+
 // Route for handling ingredients
-app.use('/api/ingredients', ingredients);
+app.use('/api/users', fridgepage);
 
 // Middleware for handling any error type
 app.use(errorHandler);

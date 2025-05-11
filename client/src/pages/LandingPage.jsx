@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const sentences = [
@@ -13,6 +13,8 @@ function LandingPage() {
     {/* State for determining which message in the cycle to display on screen, related by index*/}
     const [index, setIndex] = useState(0);
 
+    const navigate = useNavigate();
+
     {/* A looping counter, incrementing the value of index every 8 seconds */}
     useEffect(() => {
         const interval = setInterval(() => {
@@ -23,9 +25,39 @@ function LandingPage() {
       }, []);
 
     
+    const [ username, setUsername ] = useState('');
+    const [ password, setPassword ] = useState('');
+
     {/* For attempting to login */}
-    const handleLogin = () => {
-        
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        console.log('Logging in:', username, password);
+        let token = '';
+        try {
+            const response = await fetch('http://localhost:3000/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Login failed:', errorData);
+                // Optionally set an error state to display to the user
+                return;
+            }
+
+            const data = await response.json();
+            token = data.token;
+            localStorage.setItem('authToken', token); // Store the token
+            console.log('Login successful, JWT:', token);
+            navigate('/fridgepage', { replace: true }); // Navigate programmatically
+        } catch (error) {
+            console.error('Error logging in:', error);
+            // Optionally set an error state to display to the user
+        }
     };
 
     {/* For clicking Forgot Password? */}
@@ -45,7 +77,7 @@ function LandingPage() {
                 <div className="w-3/5 ml-[10%] mr-[3%] mt-[15%] ">
                     {/* Box containing "Fridge" */}
                     <div className="text-8xl mb-3">
-                        <h1 className="landing-title color">Fridge</h1>
+                        <h1 className="landing-title color-#4E937A">Fridge</h1>
                     </div>
                     {/* Box containing our revolving text */}
                     <div className="text-4xl font-[ubuntu]">
@@ -69,24 +101,37 @@ function LandingPage() {
                 </div>
                 {/* Right half of screen, for displaying login/signup page */}
                 <div className="flex justify-center items-center min-h-screen">
-                    <form className="flex flex-col max-w-md mx-4 md:mx-auto bg-white rounded-2xl shadow-xl p-6 md:p-10">
-                        {/* Email/Username input box */}
-                        <div className="mb-4 p-3 border border-gray-300 rounded text-xl font-light">
-                            <input type="text" id="email" placeholder="Email" className="w-full border-none outline-none" />
-                        </div>
-                        {/* Password input box */}
-                        <div className="mb-4 p-3 border border-gray-300 rounded text-xl font-light">
-                            <input type="password" id="password" placeholder="Password" className="w-full border-none outline-none" />
-                        </div>
+                    <div className="flex flex-col max-w-md mx-4 md:mx-auto bg-white rounded-2xl shadow-xl p-6 md:p-10">
+    
+                        <form>
+                            {/* Username input box */}
+                            <div className="mb-4 p-3 border border-gray-300 rounded text-xl font-light">
+                                <input 
+                                    type="text" id="email" placeholder="Username" 
+                                    className="w-full border-none outline-none" 
+                                    value={username}
+                                    onChange={(e) => {setUsername(e.target.value)}}
+                                />
+                            </div>
+                            {/* Password input box */}
+                            <div className="mb-4 p-3 border border-gray-300 rounded text-xl font-light">
+                                <input 
+                                    type="password" id="password" placeholder="Password" 
+                                    className="w-full border-none outline-none" 
+                                    value={password}
+                                    onChange={(e) => {setPassword(e.target.value)}}
+                                />
+                            </div>
 
-                        {/* Login Button */}
-                        <button 
-                            className="mb-4 py-3 bg-emerald-500 rounded text-xl text-white font-bold hover:bg-emerald-600 transition"
-                            onClick={() => handleLogin}
-                        >
-                            Log In
-                        </button>
-
+                            {/* Login Button */}
+                            <button 
+                                className="mb-4 py-3 w-full bg-emerald-500 rounded text-xl text-white font-bold hover:bg-emerald-600 transition"
+                                onClick={handleLogin}
+                            >
+                                Log In
+                            </button>
+                        </form>
+                        
                         {/* Forgot Password */}
                         <button 
                             className="mb-4 text-center text-sm font-medium text-blue-600 hover:underline cursor-pointer"
@@ -101,7 +146,7 @@ function LandingPage() {
                                 Sign Up
                             </button>
                         </Link>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

@@ -4,12 +4,12 @@ const router = express.Router();
 
 
 // Get all ingredients
-router.get('/', getIngredients);
+router.get('/:user_id/fridgepage', getIngredients);
 
 // Create new ingredient
-router.post('/', createIngredient);
+router.post('/:user_id/fridgepage', createIngredient);
 
 // Delete ingredient
-router.delete('/:id', deleteIngredient);
+router.delete('/:user_id/fridgepage/:ingredient_id', deleteIngredient);
 
 export default router;

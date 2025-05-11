@@ -12,7 +12,11 @@ import strawberry from '../assets/icons/strawberry.png';
 import AddItemForm from '../components/AddItemForm';
 import SortingHeader from '../components/SortingHeader'
 import UseByList from '../components/UseByList';
+import { jwtDecode } from 'jwt-decode';
 
+
+let authToken='';
+let user_id='';
 
 function FridgePage() {
   const [ingredients, setIngredients] = useState([]);
@@ -24,15 +28,32 @@ function FridgePage() {
 
   // Load persistent ingredient data on initial load (indicated by the [] at the end)
   useEffect(() => {
-    fetch('http://localhost:3000/api/ingredients')
+    authToken = localStorage.getItem('authToken');
+    
+    if (authToken) {
+      try {
+        const decodedToken = jwtDecode(authToken);
+        user_id = decodedToken.sub;
+        console.log('User ID from JWT:', user_id);
+
+        // Now you can use 'userId' to fetch user-specific data
+        // Example: fetch(`/api/users/${userId}/data`, ...)
+      } catch (error) {
+        console.error('Error decoding JWT:', error);
+        // Handle invalid token (e.g., clear it from storage, redirect to login)
+      }
+    }
+
+    fetch(`http://localhost:3000/api/users/${user_id}/fridgepage`)
     .then((response) => response.json())
     .then((data) => setIngredients(data))
-    .catch((error) => console.log('Error fetching ingredients: ', error))
+    .catch((error) => console.log('Error fetching ingredients: ', error));
+
   }, []);
 
   const handleAdd = (ingredient) => {
     console.log('Adding ingredient:', ingredient) // Debugging
-    fetch('http://localhost:3000/api/ingredients', {
+    fetch(`http://localhost:3000/api/users/${user_id}/fridgepage`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -45,8 +66,8 @@ function FridgePage() {
   };
 
   const handleDelete = (ingredient_id) => {
-    console.log(`http://localhost:3000/api/ingredients/${ingredient_id}`);
-    fetch(`http://localhost:3000/api/ingredients/${ingredient_id}`, {
+    console.log(`http://localhost:3000/api/users/${user_id}/fridgepage/${ingredient_id}`);
+    fetch(`http://localhost:3000/api/users/${user_id}/fridgepage/${ingredient_id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
