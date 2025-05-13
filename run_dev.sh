@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Running Postgres.."
-brew services start postgresql@15
+brew services start postgresql@14
 
 echo "Running Express server"
 cd ./server

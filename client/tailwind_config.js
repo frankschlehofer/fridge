@@ -3,6 +3,7 @@ export default {
       extend: {
         fontFamily: {
           ubuntu: ['Ubuntu', 'sans-serif'],
+          merri: ['Merriweather+Sans', 'sans-serif'],
         },
       },
     },

@@ -13,6 +13,7 @@ import AddItemForm from '../components/AddItemForm';
 import SortingHeader from '../components/SortingHeader'
 import UseByList from '../components/UseByList';
 import { jwtDecode } from 'jwt-decode';
+import NavSideBar from '../components/NavSideBar';
 
 
 let authToken='';
@@ -83,42 +84,46 @@ function FridgePage() {
   };
 
   return (
-    <div className="app-container">
-        <div className='header-banner'>
-            <div className="fruit-side">
-              <img src={banana} alt="banana" className="fruit-icon-shrink" />
-              <img src={cherry} alt="cherry" className="fruit-icon" />
-              <img src={orange} alt="orange" className="fruit-icon" />
-              <img src={grape} alt="grape" className="fruit-icon" />
-            </div>
+    <div className='flex flex-row h-screen overflow-hidden'>
+      <NavSideBar />
+      <div className="app-container overflow-y-auto overflow-x-hidden w-full">
+          <div className='header-banner'>
+              <div className="fruit-side">
+                <img src={banana} alt="banana" className="fruit-icon-shrink" />
+                <img src={cherry} alt="cherry" className="fruit-icon" />
+                <img src={orange} alt="orange" className="fruit-icon" />
+                <img src={grape} alt="grape" className="fruit-icon" />
+              </div>
 
-            <h1 className="app-title">Fridge</h1>
+              <h1 className="app-title">Fridge</h1>
 
-            <div className="fruit-side">
-              <img src={pineapple} alt="pineapple" className="fruit-icon" />
-              <img src={apple} alt="apple" className="fruit-icon" />
-              <img src={strawberry} alt="strawberry" className="fruit-icon" />
-              <img src={watermelon} alt="watermelon" className="fruit-icon-shrink" />
+              <div className="fruit-side">
+                <img src={pineapple} alt="pineapple" className="fruit-icon" />
+                <img src={apple} alt="apple" className="fruit-icon" />
+                <img src={strawberry} alt="strawberry" className="fruit-icon" />
+                <img src={watermelon} alt="watermelon" className="fruit-icon-shrink" />
+              </div>
+          </div>
+          <div className="content">
+            <div className="fridge-list">
+              <h2 className="fridge-list-header">My Ingredients</h2>
+              <SortingHeader ingredients={ingredients} onSort={handleSort} />
+              <IngredientList items={ingredients} onDelete={handleDelete} />
+              <AddItemForm onAdd={handleAdd} />
             </div>
-        </div>
-        <div className="content">
-          <div className="fridge-list">
-            <h2 className="fridge-list-header">My Ingredients</h2>
-            <SortingHeader ingredients={ingredients} onSort={handleSort} />
-            <IngredientList items={ingredients} onDelete={handleDelete} />
-            <AddItemForm onAdd={handleAdd} />
+            <div className="right-column">
+              <h3 className="right-column-header">Expiring Soon</h3>
+              <h3 className="use-by-header">Expired:</h3>
+              <UseByList ingredients={ingredients} useBy={alreadyExpired.toISOString()} />
+              <h3 className="use-by-header">Expires Today:</h3>
+              <UseByList ingredients={ingredients} useBy={currentDate.toISOString()} />
+              <h3 className="use-by-header">Expires Within 7 Days:</h3>
+              <UseByList ingredients={ingredients} useBy={expiresWithin7.toISOString()} />
+            </div>
           </div>
-          <div className="right-column">
-            <h3 className="right-column-header">Expiring Soon</h3>
-            <h3 className="use-by-header">Expired:</h3>
-            <UseByList ingredients={ingredients} useBy={alreadyExpired.toISOString()} />
-            <h3 className="use-by-header">Expires Today:</h3>
-            <UseByList ingredients={ingredients} useBy={currentDate.toISOString()} />
-            <h3 className="use-by-header">Expires Within 7 Days:</h3>
-            <UseByList ingredients={ingredients} useBy={expiresWithin7.toISOString()} />
-          </div>
-        </div>
+      </div>
     </div>
+    
   )
 }
 

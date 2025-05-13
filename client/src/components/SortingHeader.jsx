@@ -11,7 +11,6 @@ function SortingHeader({ ingredients, onSort }) {
             } else if (key === 'expirationDate') {
                 const dateA = new Date(a.expiration_date);
                 const dateB = new Date(b.expiration_date);
-                console.log('Parsed Dates:', { dateA, dateB }); // Debugging
                 return dateA - dateB;
             }
             return 0;

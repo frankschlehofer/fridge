@@ -5,6 +5,8 @@ import { pool } from '../../db/fridgedb.js'
 
 const saltRounds = 10;
 
+const repeatUniqueCode = 23505;
+
 export const signUpController = async (req, res, next) => {
     try {
 
@@ -24,6 +26,13 @@ export const signUpController = async (req, res, next) => {
 
     } catch (err) {
         console.error(err);
+        if (err.code == repeatUniqueCode) {
+            console.log('Attempt to signup with already in use email or username')
+            res.status(409).json({
+                error: 'username_taken',
+                message: 'This username is already in use. Please choose a different one.',
+            });
+        }
         res.status(500).send('Signup Failed');
     }
 }
@@ -39,13 +48,21 @@ export const loginController = async (req, res, next) => {
 
         // Verify user existence
         if (!user) {
-            throw new Error('No user by username: ', username);
+            console.log('No user by that username');
+            res.status(404).json({
+                error: 'user_not_found',
+                message: 'Username not found',
+            });
         }
 
         // Verify password match
         const isPasswordMatch = await bcrypt.compare(plain_text_password, user.password_hash);
         if (!isPasswordMatch) {
-            throw new Error('Incorrect password');
+            console.log('Incorrect password');
+            res.status(404).json({
+                error: 'incorrect_password',
+                message: 'Incorrect password',
+            });
         }
 
         // Generate JWT response

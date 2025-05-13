@@ -1,8 +1,11 @@
+import { daysBetween } from "../utils/expirationUtils";
+
 function UseByList({ ingredients, useBy }) {
     const useByDate = new Date(useBy);
     useByDate.setHours(0, 0, 0, 0); // Normalize to midnight
 
     const parseLocalDate = (dateString) => {
+        dateString = dateString.split('T')[0];
         const [year, month, day] = dateString.split('-').map(Number);
         return new Date(year, month - 1, day); // Month is 0-indexed in JavaScript
     };
@@ -26,8 +29,8 @@ function UseByList({ ingredients, useBy }) {
         <div className="use-by-section">
             {
                 filteredIngredients.map((ingredient) => (
-                    <div key={ingredient.id} className="ingredient-card-expired">
-                        <p>{ingredient.name} - {ingredient.expiration}</p>
+                    <div key={ingredient.ingredient_id} className="ingredient-card-expired">
+                        <p>{ingredient.name}</p>
                     </div>
                 ))
             }

@@ -3,6 +3,10 @@ import './App.css'
 import FridgePage from './pages/FridgePage'
 import LandingPage from './pages/LandingPage';
 import SignUpPage from './pages/SignUpPage';
+import FriendsPage from './pages/FriendsPage';
+import ProfilePage from './pages/ProfilePage';
+import ExplorePage from './pages/ExplorePage';
+import SavedRecipesPage from './pages/SavedRecipesPage';
 
 
 function App() {
@@ -22,13 +26,23 @@ function App() {
           path='/signup'
           element={<SignUpPage />}
         />
+        <Route
+          path='/profile'
+          element={<ProfilePage />}
+        />
+        <Route
+          path='/friends'
+          element={<FriendsPage />}
+        />
+        <Route
+          path='/explore'
+          element={<ExplorePage />}
+        />
+        <Route
+          path='/savedrecipes'
+          element={<SavedRecipesPage />}
+        />
       </Routes>
-      <Link to='/fridgepage'>
-        <button style={{color:'blue'}}>FridgePage</button>
-      </Link>
-      <Link to='/'>
-        <button style={{color:'blue'}}>Landing</button>
-      </Link>
     </Router>
     </div>
   )

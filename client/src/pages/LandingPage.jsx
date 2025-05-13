@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-
+import { loginUser } from "../utils/auth"; // Import the reusable login function
 
 const sentences = [
     'Track and manage your food with ease',
@@ -27,36 +27,35 @@ function LandingPage() {
     
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
+    const [ userNotFound, setNotUserFound ] = useState(Boolean);
+    const [ incorrectPassword, setIncorrectPassword ] = useState(Boolean);
 
     {/* For attempting to login */}
     const handleLogin = async (e) => {
         e.preventDefault();
         console.log('Logging in:', username, password);
-        let token = '';
-        try {
-            const response = await fetch('http://localhost:3000/api/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, password })
-            });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error('Login failed:', errorData);
-                // Optionally set an error state to display to the user
-                return;
+        if (!username || !password) {
+            return;
+        }
+
+        const loginResult = await loginUser(username, password, navigate);
+
+        if (!loginResult.success) {
+            console.error('Login failed:', loginResult.error);
+            if (loginResult.error.error == 'user_not_found') {
+                console.log('user not found');
+                setNotUserFound(true);
+                setIncorrectPassword(false);
+                setUsername('');
+                setPassword('');
             }
-
-            const data = await response.json();
-            token = data.token;
-            localStorage.setItem('authToken', token); // Store the token
-            console.log('Login successful, JWT:', token);
-            navigate('/fridgepage', { replace: true }); // Navigate programmatically
-        } catch (error) {
-            console.error('Error logging in:', error);
-            // Optionally set an error state to display to the user
+            else if (loginResult.error.error == 'incorrect_password') {
+                console.log('incorrect password');
+                setIncorrectPassword(true);
+                setNotUserFound(false);
+                setPassword('');
+            }
         }
     };
 
@@ -77,7 +76,7 @@ function LandingPage() {
                 <div className="w-3/5 ml-[10%] mr-[3%] mt-[15%] ">
                     {/* Box containing "Fridge" */}
                     <div className="text-8xl mb-3">
-                        <h1 className="landing-title color-#4E937A">Fridge</h1>
+                        <h1 className="landing-title color-[#4E937A]">Fridge</h1>
                     </div>
                     {/* Box containing our revolving text */}
                     <div className="text-4xl font-[ubuntu]">
@@ -105,7 +104,12 @@ function LandingPage() {
     
                         <form>
                             {/* Username input box */}
-                            <div className="mb-4 p-3 border border-gray-300 rounded text-xl font-light">
+                            <div 
+                                className={`p-3 border rounded text-xl font-light ${
+                                    userNotFound ?
+                                    'border-red-500 border-3'
+                                    : 'border-gray-300'
+                                }`}>
                                 <input 
                                     type="text" id="email" placeholder="Username" 
                                     className="w-full border-none outline-none" 
@@ -113,8 +117,16 @@ function LandingPage() {
                                     onChange={(e) => {setUsername(e.target.value)}}
                                 />
                             </div>
+                            <div className="text-red-400 mb-2">
+                                { userNotFound ? 'Username not found' : ''}
+                            </div>
                             {/* Password input box */}
-                            <div className="mb-4 p-3 border border-gray-300 rounded text-xl font-light">
+                            <div 
+                                className={`p-3 border rounded text-xl font-light ${
+                                    incorrectPassword ?
+                                    'border-red-500 border-3'
+                                    : 'border-gray-300'
+                                }`}>
                                 <input 
                                     type="password" id="password" placeholder="Password" 
                                     className="w-full border-none outline-none" 
@@ -122,7 +134,9 @@ function LandingPage() {
                                     onChange={(e) => {setPassword(e.target.value)}}
                                 />
                             </div>
-
+                            <div className="text-red-400 mb-4">
+                                { incorrectPassword ? 'Incorrect Password' : ''}
+                            </div>
                             {/* Login Button */}
                             <button 
                                 className="mb-4 py-3 w-full bg-emerald-500 rounded text-xl text-white font-bold hover:bg-emerald-600 transition"
