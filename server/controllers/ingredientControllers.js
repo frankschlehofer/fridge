@@ -5,11 +5,22 @@ import { pool } from '../../db/fridgedb.js'
 
 // @desc Get all ingredients
 // @route GET /api/ingredients
-export const getIngredients = async (req, res) => {
-    console.log(`Get request`);
+export const getIngredients = async (req, res, sendResponse = true) => {
+    console.log(`Get request for ingredients`);
     const user_id = req.params.user_id;
-    const results = await pool.query('SELECT * FROM ingredients WHERE ingredients.user_id = $1', [user_id]);
-    res.status(200).json(results.rows);
+    try {
+        const results = await pool.query('SELECT * FROM ingredients WHERE ingredients.user_id = $1', [user_id]);
+        if (sendResponse) {
+            res.status(200).json(results.rows); // Send JSON response to the client
+        }
+        return results.rows; // Return the data for internal use
+    } catch (error) {
+        console.error('Error fetching ingredients from database:', error);
+        if (sendResponse) {
+            res.status(500).send('Failed to retrieve ingredients.');
+        }
+        throw new Error('Failed to retrieve ingredients.');
+    }
 };
 
 

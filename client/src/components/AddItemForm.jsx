@@ -16,7 +16,7 @@ function AddItemForm({ onAdd }) {
   };
 
   return (
-    <form className="add-item-form" onSubmit={handleSubmit}>
+    <form className="add-item-form rounded-2xl bg-[#C4B4D1] p-5" onSubmit={handleSubmit}>
       <h3>Add Ingredient</h3>
 
       <input

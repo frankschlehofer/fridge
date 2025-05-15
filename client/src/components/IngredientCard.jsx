@@ -10,11 +10,13 @@ function IngredientCard({ name, quantity, expiration_date, onDelete }) {
   };
 
   return (
-    <div className="ingredient-card">
+    <div className="ingredient-card bg-white">
       <div>
         <strong>{name}</strong> — {quantity}
         <br />
-        <small>Expires in {daysBetween(currentDate, parseLocalDate(expiration_date))} days</small>
+        <small>
+          Expires in {daysBetween(currentDate, parseLocalDate(expiration_date))} days
+        </small>
       </div>
       <button onClick={onDelete}>❌</button>
     </div>

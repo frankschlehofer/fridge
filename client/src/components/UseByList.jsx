@@ -1,6 +1,7 @@
 import { daysBetween } from "../utils/expirationUtils";
+import IngredientCard from "./IngredientCard";
 
-function UseByList({ ingredients, useBy }) {
+function UseByList({ ingredients, useBy, onDelete }) {
     const useByDate = new Date(useBy);
     useByDate.setHours(0, 0, 0, 0); // Normalize to midnight
 
@@ -26,12 +27,18 @@ function UseByList({ ingredients, useBy }) {
     });
 
     return (
-        <div className="use-by-section">
+        <div className="flex flex-row flex-wrap">
             {
-                filteredIngredients.map((ingredient) => (
-                    <div key={ingredient.ingredient_id} className="ingredient-card-expired">
-                        <p>{ingredient.name}</p>
-                    </div>
+                filteredIngredients.map((item) => (
+                    <IngredientCard
+                        user_id={item.user_id}
+                        key={item.ingredient_id}
+                        ingredient_id={item.ingredient_id}
+                        name={item.name}
+                        quantity={item.quantity}
+                        expiration_date={item.expiration_date}
+                        onDelete={() => onDelete(item.ingredient_id)}
+                    />
                 ))
             }
         </div>

@@ -2,9 +2,9 @@ import IngredientCard from './IngredientCard';
 
 function IngredientList({ items, onDelete }) {
   return (
-    <div className="ingredient-list">
+    <div className="flex flex-row flex-wrap mt-4 mb-4 gap-1 items-center">
       {items.length === 0 ? (
-        <p style={{ color: '#ccc' }}>Time to go shopping!.</p>
+        <p className='font-bold text-4xl'>Time to go shopping!</p>
       ) : (
         items.map((item) => (
           <IngredientCard
