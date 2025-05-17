@@ -1,0 +1,16 @@
+2025-05-17 09:50:26.561 MST [14697] LOG:  starting PostgreSQL 14.18 (Homebrew) on aarch64-apple-darwin24.4.0, compiled by Apple clang version 17.0.0 (clang-1700.0.13.3), 64-bit
+2025-05-17 09:50:26.562 MST [14697] LOG:  listening on IPv6 address "::1", port 5432
+2025-05-17 09:50:26.562 MST [14697] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-05-17 09:50:26.562 MST [14697] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2025-05-17 09:50:26.564 MST [14698] LOG:  database system was shut down at 2025-05-17 09:48:46 MST
+2025-05-17 09:50:26.567 MST [14697] LOG:  database system is ready to accept connections
+2025-05-17 09:57:50.661 MST [14752] ERROR:  syntax error at or near ")" at character 149
+2025-05-17 09:57:50.661 MST [14752] STATEMENT:  CREATE TABLE IF NOT EXISTS savedrecipes (
+	    recipe_id int PRIMARY KEY,
+	    user_id int REFERENCES users(user_id),
+	    name varchar(255) NOT NULL,
+	);
+2025-05-17 10:08:07.489 MST [14697] LOG:  received smart shutdown request
+2025-05-17 10:08:07.497 MST [14697] LOG:  background worker "logical replication launcher" (PID 14704) exited with exit code 1
+2025-05-17 10:08:07.498 MST [14699] LOG:  shutting down
+2025-05-17 10:08:07.521 MST [14697] LOG:  database system is shut down

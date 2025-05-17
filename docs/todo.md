@@ -1,9 +1,16 @@
 # Immediate Tasks:
 
-* Explore page for viewing recipes
-* Saving recipes
-* Skeleton pages
+* API for getting saved recipes
+* Saved recipes page
+* Increased search parameters at top of page
+* Extend call to api to support these parameters
 
+
+* Click to view full page
+* Makes a call to spoonacular for more information
+
+
+* Skeleton pages
 * Add an About Page, ideally below the landing page with a little arrow downwards
 
 ## Eventual Tasks:
@@ -22,4 +29,4 @@
 * Incorporate some machine learning for input into the database, could be done sooner
 
 ## Maybe Tasks
-* Revisit how the UseByList works, just use SQL queries instead (maybe do)
+* Revisit how the UseByList works, just use SQL queries instead

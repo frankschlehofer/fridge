@@ -12,6 +12,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 app.use(cors());
 
 // Middleware to log requests to console
@@ -19,7 +20,7 @@ app.use(logger);
 
 app.use('/api/auth', auth)
 
-// Route for handling ingredients
+// Route for handling user information, including ingredients and recipes
 app.use('/api/users', fridgepage);
 
 // Middleware for handling any error type

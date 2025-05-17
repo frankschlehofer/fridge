@@ -5,3 +5,5 @@
 * Signup/Login error handling
 * UI fixed for incorrect signup/login
 * Fix date formatting issue
+* Explore page for viewing recipes
+* Saving recipes
