@@ -36,11 +36,8 @@ function ExplorePage() {
     return (
         <div className="flex flex-row h-screen">
             <NavSideBar />
-            <div className="flex flex-col w-4/5 overflow-auto">
-                <div className="h-20 border-b-2 w-full">
-
-                </div>
-                <div className="flex flex-row flex-wrap overflow-y-auto overflow-x-hidden w-full">
+            <div className="flex flex-col w-4/5 overflow-auto items-center justify-center bg-amber-50">
+                {/* <div className="flex flex-row flex-wrap overflow-y-auto overflow-x-hidden w-full">
                     {recipes.length === 0 ? (
                         <p className='font-bold text-4xl'>No recipes!</p>
                     ) : (
@@ -56,6 +53,24 @@ function ExplorePage() {
                         />
                         ))
                     )}
+                    <RecipeCard
+                            key={1}
+                            recipe_id={1}
+                            name={'Apple Pie'}
+                            user_id={1}
+                            usedIngredients={[]}
+                            missedIngredients={[]}
+                        />
+                </div> */}
+                <div className="items-center">
+                    <RecipeCard
+                        key={1}
+                        recipe_id={1}
+                        name={'Apple Pie'}
+                        user_id={1}
+                        usedIngredients={[]}
+                        missedIngredients={[]}
+                    />
                 </div>
             </div>
             

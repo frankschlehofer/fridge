@@ -52,3 +52,15 @@ export const saveRecipe = async (req, res, next) => {
         res.status(500).send('Save recipe failed');
     }
 };
+
+export const getSavedRecipes = async (req, res, next) => {
+    try {
+        const user_id = req.params.user_id;
+        console.log('Getting saved recipes for user: ', user_id);
+        const result = await pool.query('SELECT * FROM savedrecipes WHERE user_id = $1', [user_id]);
+        res.status(200).json(result.rows);
+    } catch (err) {
+        console.log('Err', err);
+        res.status(500).send('Get saved recipes failed');
+    }
+};
