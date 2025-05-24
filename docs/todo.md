@@ -1,5 +1,11 @@
 # Immediate Tasks:
 
+* Add a way to extend parameters, including protein, type meal, etc
+* Extend query call to include instructions
+* Connect those UI buttons to query parameters
+* Saved recipes need image and recipe instructions
+* Remove saved recipe
+
 * API for getting saved recipes
 * Saved recipes page
 * Increased search parameters at top of page

@@ -67,7 +67,7 @@ function LandingPage() {
 
     return (
         <div>
-            <div className="flex flex-col md:flex-row h-screen bg-amber-50">
+            <div className="flex flex-col md:flex-row h-screen bg-[##1a1a1a]">
                 {  
                     /* Left Half of Screen, for displaying our content 
                      * Consumes 2/3 of the page   
@@ -100,7 +100,7 @@ function LandingPage() {
                 </div>
                 {/* Right half of screen, for displaying login/signup page */}
                 <div className="flex justify-center items-center min-h-screen">
-                    <div className="flex flex-col max-w-md mx-4 md:mx-auto bg-white rounded-2xl shadow-xl p-6 md:p-10">
+                    <div className="flex flex-col max-w-md mx-4 md:mx-auto bg-[#2d2d2d] rounded-2xl shadow-xl p-6 md:p-10">
     
                         <form>
                             {/* Username input box */}
