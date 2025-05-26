@@ -1,38 +1,24 @@
 # Immediate Tasks:
 
 * Add a way to extend parameters, including protein, type meal, etc
-* Extend query call to include instructions
 * Connect those UI buttons to query parameters
-* Saved recipes need image and recipe instructions
-* Remove saved recipe
 
-* API for getting saved recipes
-* Saved recipes page
-* Increased search parameters at top of page
-* Extend call to api to support these parameters
+### Backend
+* Make calls to Google Cloud Vision API, receive back list of items
+* Set up authentication necessary
 
+### Frontend
+* Section for inputting image of food/fridge
+* Include section for potential modifications
 
-* Click to view full page
-* Makes a call to spoonacular for more information
-
-
-* Skeleton pages
-* Add an About Page, ideally below the landing page with a little arrow downwards
 
 ## Eventual Tasks:
 
-* Create profile page with ingredients list, expirations, etc
-* Create friends page
-* Create recipe tinder type thing
-* Create saved recipes page
-* Create options page
 * Clean up code
 * Add better documentation, commenting, etc
-* Rewrite certain functions
+* Add an About Page, ideally below the landing page with a little arrow downwards
 
 ## Long Term Tasks:
-* Add an animation to landing page, nice looking UI
-* Incorporate some machine learning for input into the database, could be done sooner
+* Create friends page
+* Create settings page
 
-## Maybe Tasks
-* Revisit how the UseByList works, just use SQL queries instead

@@ -6,34 +6,69 @@ const spoonacularAPIKey = process.env.SPOONACULAR_KEY;
 export const getRecipes = async (req, res, next) => {
     try {
         const ingredients = await getIngredients(req, res, false); // Pass false to avoid sending a response
-        console.log(ingredients); // This will be an array of ingredient objects
 
-        const baseUrl = 'https://api.spoonacular.com/recipes/findByIngredients'; 
+        const baseUrl = 'https://api.spoonacular.com/recipes/complexSearch'; 
         const queryParams = new URLSearchParams();
         queryParams.append('apiKey', spoonacularAPIKey);
 
-        let nameString = ingredients.map(ingredient => ingredient.name).join(',+');
-        queryParams.append('ingredients', nameString);
-        queryParams.append('number', 100);
+        let nameString = ingredients.map(ingredient => ingredient.name).join(',');
+        queryParams.append('includeIngredients', nameString);
+        queryParams.append('number', 50);
+        queryParams.append('sort', 'max-used-ingredients');
+        queryParams.append('fillIngredients', 'true');
+        queryParams.append('type', 'main course');
 
         const apiUrl = `${baseUrl}?${queryParams.toString()}`;
-        console.log(apiUrl);
 
         const response = await fetch(apiUrl);
         if (!response.ok) {
-          console.log("Spoonacular request did not work");
-          return;
+            console.log("Spoonacular request did not work");
+            return;
         }
-        
+
         const data = await response.json();
-        console.log(data);
-        res.status(200).json(data);
+
+        // Shuffle the results array
+        const shuffleArray = (array) => {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        };
+
+        shuffleArray(data.results); // Shuffle the array in place
+        console.log(data.results);
+
+        res.status(200).json(data.results);
 
     } catch (err) {
         console.error(err);
         res.status(500).send('Recipes from fridge failed');
     }
 };
+
+export const getRecipeInfo = async (req, res, next) => {
+    try {
+        const recipe_id = req.params.recipe_id;
+        console.log(recipe_id)
+        const baseUrl = `https://api.spoonacular.com/recipes/${recipe_id}/information`; 
+        const queryParams = new URLSearchParams();
+        queryParams.append('apiKey', spoonacularAPIKey);
+        const apiUrl = `${baseUrl}?${queryParams.toString()}`;
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            console.log("Spoonacular request did not work");
+            return;
+          }
+        const data = await response.json();
+        console.log(data);
+        res.status(200).json(data);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Get recipe info failed');
+    }
+    
+}
 
 // Body of request contains name, recipe_id, and user_id to save the recipe
 export const saveRecipe = async (req, res, next) => {

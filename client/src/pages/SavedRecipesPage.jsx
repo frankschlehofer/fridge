@@ -24,7 +24,7 @@ function SavedRecipesPage() {
         console.log("User ID from JWT:", user_id)
 
         const response = await fetch(`http://localhost:3000/api/users/${user_id}/savedrecipes`)
-        const data = await response.json()
+        const data = await response.json();
         setSavedRecipes(data)
         setLoading(false)
       } catch (error) {
@@ -51,6 +51,23 @@ function SavedRecipesPage() {
       // Update the UI by removing the deleted recipe
     } catch (error) {
       console.log("Error removing recipe: ", error)
+    }
+  }
+
+  const handleRecipeInfo = async (recipeId) => {
+    try {
+      const authToken = localStorage.getItem("authToken")
+      const decodedToken = jwtDecode(authToken)
+      const user_id = decodedToken.sub
+      console.log(recipeId)
+      const response = await fetch(`http://localhost:3000/api/users/${user_id}/getrecipeinfo/${recipeId}`)
+
+      const data = await response.json();
+      console.log('url:', data.sourceUrl);
+      
+      window.open(data.sourceUrl, '_blank', 'noopener,noreferrer');
+    } catch (error) {
+      console.log("Error getting recipe info: ", error)
     }
   }
 
@@ -83,7 +100,7 @@ function SavedRecipesPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {savedRecipes.map((recipe) => (
               <div
-                key={recipe.id}
+                key={recipe.recipe_id}
                 className="bg-card rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
                 style={{ backgroundColor: "var(--bg-card)", borderColor: "var(--border-color)" }}
               >
@@ -119,9 +136,9 @@ function SavedRecipesPage() {
 
                   <div className="flex justify-between items-center mt-4">
                     <button
-                      onClick={() => navigate(`/recipe/${recipe.recipe_id}`)}
-                      className="px-3 py-1 rounded text-sm"
-                      style={{ backgroundColor: "var(--primary)", color: "white" }}
+                      onClick={() => handleRecipeInfo(recipe.recipe_id)}
+                      style={{ backgroundColor: "var(--primary)" }}
+                      className="px-3 py-1 rounded text-sm hover:text-black transition-colors"
                     >
                       View Recipe
                     </button>
