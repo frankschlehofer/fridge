@@ -20,7 +20,7 @@ export const loginUser = async (username, password, navigate) => {
         console.log('Login successful, JWT:', token);
 
         if (navigate) {
-            navigate('/explore', { replace: true }); // Navigate programmatically
+            navigate('/fridgepage', { replace: true }); // Navigate programmatically
         }
 
         return { success: true, token };

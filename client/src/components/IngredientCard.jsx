@@ -9,7 +9,7 @@ function IngredientCard({ name, quantity, expiration_date, onDelete }) {
     const [year, month, day] = dateString.split("-").map(Number)
     return new Date(year, month - 1, day)
   }
-
+  
   const daysUntilExpiration = daysBetween(currentDate, parseLocalDate(expiration_date))
 
   let cardClass = "ingredient-card"

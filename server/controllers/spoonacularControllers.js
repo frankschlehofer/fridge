@@ -28,15 +28,6 @@ export const getRecipes = async (req, res, next) => {
 
         const data = await response.json();
 
-        // Shuffle the results array
-        const shuffleArray = (array) => {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        };
-
-        shuffleArray(data.results); // Shuffle the array in place
         console.log(data.results);
 
         res.status(200).json(data.results);

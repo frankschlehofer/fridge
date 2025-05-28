@@ -8,6 +8,7 @@ import SortingHeader from "../components/SortingHeader"
 import UseByList from "../components/UseByList"
 import { jwtDecode } from "jwt-decode"
 import NavSideBar from "../components/NavSideBar"
+import ImageUploadSection from "../components/ImageUploadSection"
 
 let authToken = ""
 let user_id = ""
@@ -75,6 +76,16 @@ function FridgePage() {
     setIngredients(sortedIngredients)
   }
 
+  const handleBulkAdd = (parsedIngredients) => {
+    console.log("Adding bulk ingredients:", parsedIngredients)
+    parsedIngredients.map((ingredient) => {
+      ingredient.quantity = 1;
+      handleAdd(ingredient);
+    })
+    parsedIngredients = [];
+    
+  }
+
   return (
     <div className="flex flex-row h-screen overflow-hidden">
       <NavSideBar />
@@ -123,6 +134,9 @@ function FridgePage() {
           </div>
 
           <AddItemForm onAdd={handleAdd} />
+
+          {/* Image Upload Section */}
+          <ImageUploadSection userId={user_id} onBulkAdd={handleBulkAdd} />
         </div>
       </div>
     </div>

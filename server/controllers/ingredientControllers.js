@@ -34,8 +34,13 @@ export const createIngredient = async (req, res, next) => {
     }
     const user_id = req.params.user_id;
     console.log(user_id);
+
+    let expiration = req.body.expiration_date;
+    if (!expiration) {
+        expiration = '2025-12-31';
+    }
     await pool.query('INSERT INTO ingredients (user_id, name, quantity, expiration_date) VALUES ($1, $2, $3, $4)', 
-                                    [user_id, req.body.name, parseInt(req.body.quantity), req.body.expiration_date]);
+                                    [user_id, req.body.name, parseInt(req.body.quantity), expiration]);
     const results = await pool.query('SELECT * FROM ingredients WHERE user_id = $1', [user_id]);
     res.status(201).json(results.rows);
 };

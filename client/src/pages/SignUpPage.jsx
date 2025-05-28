@@ -67,10 +67,10 @@ function SignUpPage() {
                 <div className="font-[ubuntu] text-[#4E937A] text-5xl font-bold mb-4 mt-8">
                     Create your Fridge
                 </div>
-                <div className="font-[ubuntu] text-2xl m-5">
+                <div className="font-[ubuntu] text-2xl text-black m-5">
                     Cooking, made easy.
                 </div>
-                <div className="items-start">
+                <div className="items-start text-black">
                     {/* Name input box */}
                     <label className="text-xl font-light">Name</label>
                     <div className="border-3 mb-2 w-128 p-3 border-gray-300 text-xl font-light hover:border-cyan-400">

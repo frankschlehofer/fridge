@@ -11,18 +11,18 @@ function UseByList({ ingredients, useBy, onDelete }) {
   }
 
   const filteredIngredients = ingredients.filter((ingredient) => {
-    const expirationDate = parseLocalDate(ingredient.expiration_date) // Parse as local date
-    expirationDate.setHours(0, 0, 0, 0) // Normalize to midnight
+      const expirationDate = parseLocalDate(ingredient.expiration_date) // Parse as local date
+      expirationDate.setHours(0, 0, 0, 0) // Normalize to midnight
 
-    // Compare dates numerically
-    if (useByDate.getTime() === new Date().setHours(0, 0, 0, 0)) {
-      return expirationDate.getTime() === useByDate.getTime() // Expiring today
-    } else if (useByDate.getTime() < new Date().setHours(0, 0, 0, 0)) {
-      return expirationDate.getTime() <= useByDate.getTime() // Already expired
-    } else {
-      return (
-        expirationDate.getTime() > new Date().setHours(0, 0, 0, 0) && expirationDate.getTime() <= useByDate.getTime()
-      ) // Expiring within range
+      // Compare dates numerically
+      if (useByDate.getTime() === new Date().setHours(0, 0, 0, 0)) {
+        return expirationDate.getTime() === useByDate.getTime() // Expiring today
+      } else if (useByDate.getTime() < new Date().setHours(0, 0, 0, 0)) {
+        return expirationDate.getTime() <= useByDate.getTime() // Already expired
+      } else {
+        return (
+          expirationDate.getTime() > new Date().setHours(0, 0, 0, 0) && expirationDate.getTime() <= useByDate.getTime()
+        ) // Expiring within range
     }
   })
 
