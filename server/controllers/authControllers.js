@@ -3,10 +3,11 @@ import jwt from 'jsonwebtoken';
 
 import { pool } from '../../db/fridgedb.js'
 
-const saltRounds = 10;
-
+const saltRounds = 10
 const repeatUniqueCode = 23505;
 
+// @desc Create information for a new user within the database
+// @route POST /api/auth/signup
 export const signUpController = async (req, res, next) => {
     try {
 
@@ -37,6 +38,8 @@ export const signUpController = async (req, res, next) => {
     }
 }
 
+// @desc Retrieve information for a user in the database
+// @route POST /api/auth/login
 export const loginController = async (req, res, next) => {
     try {
         // Extract login parameters

@@ -1,9 +1,24 @@
 import axios from 'axios';
 
-// IMPORTANT: Store your API key securely, preferably in environment variables
 const GOOGLE_VISION_API_KEY = process.env.GOOGLE_CLOUD_VISION_API_KEY;
 const VISION_API_URL = `https://vision.googleapis.com/v1/images:annotate?key=${GOOGLE_VISION_API_KEY}`;
 
+const maxResult = 30;
+const scanType = 'LABEL_DETECTION'
+
+const generalLabelsToExclude = [
+    'Food', 'Fruit', 'Produce', 'Ingredient', 'Plant',
+    'Still life photography', 'Natural foods', 'Vegan nutrition',
+    'Accessory fruit', 'Whole food', 'Local food', 'Staple food',
+    'Superfood', 'Cuisine', 'Dish', 'Tableware', 'Serveware',
+    'Kitchen utensil', 'Countertop', 'Photography', 'Wood',
+    'Citrus', 'Food group', 'Red', 
+].map(label => label.toLowerCase());
+
+const minConfidence = 0.75;
+
+// @desc Parse image for food items, done through Google Cloud Vision API using Label Detection
+// @route POST /api/parse-food-image
 export const scanImage = async (req, res, next) => {
     try {
         // Need base64 encoded image
@@ -32,8 +47,8 @@ export const scanImage = async (req, res, next) => {
                 },
                 features: [
                 {
-                    type: 'LABEL_DETECTION',
-                    maxResults: 30,
+                    type: scanType,
+                    maxResults: maxResult,
                 },
                 ],
             },
@@ -54,17 +69,6 @@ export const scanImage = async (req, res, next) => {
         // visionApiResponse.data.responses[0] will contain the results for our single image request.
         const visionData = visionApiResponse.data.responses[0];
         let parsedItems = [];
-
-        const generalLabelsToExclude = [
-            'Food', 'Fruit', 'Produce', 'Ingredient', 'Plant',
-            'Still life photography', 'Natural foods', 'Vegan nutrition',
-            'Accessory fruit', 'Whole food', 'Local food', 'Staple food',
-            'Superfood', 'Cuisine', 'Dish', 'Tableware', 'Serveware',
-            'Kitchen utensil', 'Countertop', 'Photography', 'Wood',
-            'Citrus', 'Food group', 'Red', 
-        ].map(label => label.toLowerCase());
-
-        const minConfidence = 0.75;
 
         // Extract localized objects
         if (visionData.labelAnnotations) {
@@ -87,7 +91,6 @@ export const scanImage = async (req, res, next) => {
         res.status(200).json({ items: parsedItems });
     } catch (error) {
         console.error('Error in scanImage controller:', error.response ? error.response.data : error.message);
-        // Send a more specific error message if available from Vision API
         if (error.response && error.response.data && error.response.data.error) {
         return res.status(error.response.status || 500).json({
             message: `Vision API Error: ${error.response.data.error.message}`,
