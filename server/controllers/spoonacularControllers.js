@@ -5,15 +5,17 @@ const spoonacularAPIKey = process.env.SPOONACULAR_KEY;
 
 export const getRecipes = async (req, res, next) => {
     try {
-        const ingredients = await getIngredients(req, res, false); // Pass false to avoid sending a response
-
+        
+        const ingredients = req.body.ingredientNames
+        
+        console.log('\n\n\n\n\n\nhello', ingredients)
         const baseUrl = 'https://api.spoonacular.com/recipes/complexSearch'; 
         const queryParams = new URLSearchParams();
         queryParams.append('apiKey', spoonacularAPIKey);
 
         let nameString = ingredients.map(ingredient => ingredient.name).join(',');
         queryParams.append('includeIngredients', nameString);
-        queryParams.append('number', 50);
+        queryParams.append('number', 1);
         queryParams.append('sort', 'max-used-ingredients');
         queryParams.append('fillIngredients', 'true');
         queryParams.append('type', 'main course');

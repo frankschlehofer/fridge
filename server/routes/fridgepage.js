@@ -15,7 +15,7 @@ router.post('/:user_id/fridgepage', createIngredient);
 router.delete('/:user_id/fridgepage/:ingredient_id', deleteIngredient);
 
 // Get recipes
-router.get('/:user_id/getrecipes', getRecipes);
+router.post('/:user_id/getrecipes', getRecipes);
 
 router.get('/:user_id/getrecipeinfo/:recipe_id', getRecipeInfo);
 

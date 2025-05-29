@@ -4,11 +4,15 @@ import { useEffect, useState, useRef } from "react"
 import NavSideBar from "../components/NavSideBar"
 import { useNavigate } from "react-router-dom"
 import { jwtDecode } from "jwt-decode"
+import IngredientSelector from "../components/IngredientSelector"
 
-function ExplorePage() {
+const ExplorePage = () => {
   const [recipes, setRecipes] = useState([])
   const [currentRecipe, setCurrentRecipe] = useState(null)
   const [animation, setAnimation] = useState(null)
+  const [ingredients, setIngredients] = useState([])
+  const [selectedIngredientNames, setSelectedIngredientNames] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
   const cardRef = useRef(null)
   const navigate = useNavigate()
 
@@ -24,20 +28,68 @@ function ExplorePage() {
       const user_id = decodedToken.sub
       console.log("User ID from JWT:", user_id)
 
-      // Fetch recipes
-      fetch(`http://localhost:3000/api/users/${user_id}/getrecipes`)
+      // First fetch ingredients
+      fetch(`http://localhost:3000/api/users/${user_id}/fridgepage`)
         .then((response) => response.json())
-        .then((data) => {
-          setRecipes(data)
-          if (data && data.length > 0) {
-            setCurrentRecipe(data[0])
-          }
+        .then((ingredientsData) => {
+          setIngredients(ingredientsData)
         })
-        .catch((error) => console.log("Error fetching recipes: ", error))
+        .catch((error) => console.log("Error fetching ingredients: ", error))
     } catch (error) {
       console.error("Error decoding JWT:", error)
     }
   }, [navigate])
+
+  const fetchRecipes = async (user_id, ingredientNames = []) => {
+    setIsLoading(true)
+    try {
+      console.log("Fetching recipes with ingredients:", ingredientNames)
+
+      if (ingredientNames.length === 0) {
+        setRecipes([])
+        setCurrentRecipe(null)
+        setIsLoading(false)
+        return
+      }
+
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ingredientNames }),
+      }
+
+      const endpoint = `http://localhost:3000/api/users/${user_id}/getrecipes`
+      const response = await fetch(endpoint, requestOptions)
+      const data = await response.json()
+
+      setRecipes(data)
+      if (data && data.length > 0) {
+        setCurrentRecipe(data[0])
+      } else {
+        setCurrentRecipe(null)
+      }
+    } catch (error) {
+      console.log("Error fetching recipes: ", error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  // Modify the handleIngredientSelectionChange function to just update state without making API calls
+  const handleIngredientSelectionChange = (selectedNames) => {
+    setSelectedIngredientNames(selectedNames)
+    // No API call here anymore
+  }
+
+  // Add a new function to handle the search button click
+  const handleSearchRecipes = () => {
+    const authToken = localStorage.getItem("authToken")
+    const decodedToken = jwtDecode(authToken)
+    const user_id = decodedToken.sub
+    fetchRecipes(user_id, selectedIngredientNames)
+  }
 
   const handleSaveRecipe = async () => {
     if (!currentRecipe) return
@@ -120,8 +172,49 @@ function ExplorePage() {
       <div className="flex flex-col overflow-y-auto overflow-x-hidden p-6 w-full">
         <h1 className="text-4xl font-bold mb-6 page-title">Explore Recipes</h1>
 
+        {/* Add the ingredient selector */}
+        <div>
+          <IngredientSelector ingredients={ingredients} onSelectionChange={handleIngredientSelectionChange} />
+          <div className="flex justify-center mt-4 mb-6">
+            <button
+              onClick={handleSearchRecipes}
+              className="px-6 py-3 rounded-lg font-medium transition-colors"
+              style={{
+                backgroundColor: "var(--primary)",
+                color: "white",
+                boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <div className="flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+                Search Recipes
+              </div>
+            </button>
+          </div>
+        </div>
+
         <div className="flex flex-col items-center justify-center flex-1">
-          {currentRecipe ? (
+          {isLoading ? (
+            <div className="flex items-center justify-center h-64">
+              <div
+                className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2"
+                style={{ borderColor: "var(--primary)" }}
+              ></div>
+            </div>
+          ) : currentRecipe ? (
             <div className="max-w-md w-full relative">
               <div
                 ref={cardRef}
