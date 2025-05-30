@@ -1,21 +1,20 @@
 import { pool } from '../../db/fridgedb.js';
 
 const spoonacularAPIKey = process.env.SPOONACULAR_KEY;
-const maxRecipesReturned = 20
+const maxRecipesReturned = 20;
 
 // @desc Fetch recipes based on ingredients
 // @route POST /api/recipes
 export const getRecipes = async (req, res, next) => {
     try {
         const ingredients = req.body.ingredientNames; // Extract ingredient names from request body
-        console.log('Ingredients:', ingredients);
 
         const baseUrl = 'https://api.spoonacular.com/recipes/complexSearch'; 
         const queryParams = new URLSearchParams();
         queryParams.append('apiKey', spoonacularAPIKey); // Add API key for authentication
 
         // Build the query string with ingredient names
-        let nameString = ingredients.map(ingredient => ingredient.name).join(',');
+        let nameString = ingredients.map(ingredient => ingredient).join(',');
         queryParams.append('includeIngredients', nameString);
         queryParams.append('number', maxRecipesReturned); // Limit the number of recipes returned
         queryParams.append('sort', 'max-used-ingredients'); // Sort recipes by prioritizing maxing the number of used ingredients
@@ -23,6 +22,7 @@ export const getRecipes = async (req, res, next) => {
         queryParams.append('type', 'main course'); // Filter recipes by type
 
         const apiUrl = `${baseUrl}?${queryParams.toString()}`;
+        console.log(apiUrl)
         const response = await fetch(apiUrl); // Make the API request
         if (!response.ok) {
             console.log("Spoonacular request did not work"); // Log error if request fails

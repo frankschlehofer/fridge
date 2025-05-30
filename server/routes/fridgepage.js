@@ -1,6 +1,7 @@
 import express from 'express';
 import { getIngredients, createIngredient, deleteIngredient } from '../controllers/ingredientControllers.js';
 import { getRecipes, getSavedRecipes, saveRecipe, deleteSavedRecipe, getRecipeInfo } from '../controllers/spoonacularControllers.js';
+import { getProfile } from '../controllers/profileControllers.js'
 
 const router = express.Router();
 
@@ -24,7 +25,8 @@ router.post('/:user_id/saverecipe', saveRecipe);
 
 router.get('/:user_id/savedrecipes', getSavedRecipes);
 
-
 router.delete('/:user_id/savedrecipes/:recipe_id', deleteSavedRecipe);
+
+router.get('/:user_id/profile', getProfile);
 
 export default router;

@@ -7,7 +7,8 @@ import FriendsPage from "./pages/FriendsPage"
 import ProfilePage from "./pages/ProfilePage"
 import ExplorePage from "./pages/ExplorePage"
 import SavedRecipesPage from "./pages/SavedRecipesPage"
-import SettingsPage from "./pages/SettingsPage"
+import AboutPage from "./pages/AboutPage"
+import TutorialPage from "./pages/TutorialPage"
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
           <Route path="/friends" element={<FriendsPage />} />
           <Route path="/explore" element={<ExplorePage />} />
           <Route path="/savedrecipes" element={<SavedRecipesPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/tutorial" element={<TutorialPage />} />
         </Routes>
       </Router>
     </div>
