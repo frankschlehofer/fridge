@@ -146,13 +146,6 @@ function LandingPage() {
                             </button>
                         </form>
                         
-                        {/* Forgot Password */}
-                        <button 
-                            className="mb-4 text-center text-sm font-medium text-blue-600 hover:underline cursor-pointer"
-                            onClick={() => handleForgot}
-                        >
-                            Forgot Password?
-                        </button>
 
                         {/* Sign Up */}
                         <Link to='/signup' className="mt-6 py-3 text-center bg-amber-400 rounded text-xl text-white font-bold hover:bg-amber-500 transition">
