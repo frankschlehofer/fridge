@@ -12,6 +12,7 @@ import ImageUploadSection from "../components/ImageUploadSection"
 
 let authToken = ""
 let user_id = ""
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
 function FridgePage() {
   const [ingredients, setIngredients] = useState([])
@@ -39,7 +40,7 @@ function FridgePage() {
       navigate("/", { replace: true })
     }
 
-    fetch(`http://localhost:3000/api/users/${user_id}/fridgepage`)
+    fetch(`${BACKEND_URL}/api/users/${user_id}/fridgepage`)
       .then((response) => response.json())
       .then((data) => setIngredients(data))
       .catch((error) => console.log("Error fetching ingredients: ", error))
@@ -47,7 +48,7 @@ function FridgePage() {
 
   const handleAdd = (ingredient) => {
     console.log("Adding ingredient:", ingredient)
-    fetch(`http://localhost:3000/api/users/${user_id}/fridgepage`, {
+    fetch(`${BACKEND_URL}/api/users/${user_id}/fridgepage`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,8 +61,8 @@ function FridgePage() {
   }
 
   const handleDelete = (ingredient_id) => {
-    console.log(`http://localhost:3000/api/users/${user_id}/fridgepage/${ingredient_id}`)
-    fetch(`http://localhost:3000/api/users/${user_id}/fridgepage/${ingredient_id}`, {
+    console.log(`${BACKEND_URL}/api/users/${user_id}/fridgepage/${ingredient_id}`)
+    fetch(`${BACKEND_URL}/api/users/${user_id}/fridgepage/${ingredient_id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

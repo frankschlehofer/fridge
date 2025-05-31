@@ -9,6 +9,8 @@ const sentences = [
     'Connect with your friends to recommend something new'
 ];
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+
 function LandingPage() {
     {/* State for determining which message in the cycle to display on screen, related by index*/}
     const [index, setIndex] = useState(0);
@@ -58,12 +60,6 @@ function LandingPage() {
             }
         }
     };
-
-    {/* For clicking Forgot Password? */}
-    const handleForgot = () => {
-        
-    };
-
 
     return (
         <div>

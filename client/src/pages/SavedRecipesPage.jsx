@@ -5,6 +5,9 @@ import NavSideBar from "../components/NavSideBar"
 import { useNavigate } from "react-router-dom"
 import { jwtDecode } from "jwt-decode"
 
+
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+
 function SavedRecipesPage() {
   const [savedRecipes, setSavedRecipes] = useState([])
   const [loading, setLoading] = useState(true)
@@ -23,7 +26,7 @@ function SavedRecipesPage() {
         const user_id = decodedToken.sub
         console.log("User ID from JWT:", user_id)
 
-        const response = await fetch(`http://localhost:3000/api/users/${user_id}/savedrecipes`)
+        const response = await fetch(`${BACKEND_URL}/api/users/${user_id}/savedrecipes`)
         const data = await response.json();
         setSavedRecipes(data)
         setLoading(false)
@@ -42,7 +45,7 @@ function SavedRecipesPage() {
       const decodedToken = jwtDecode(authToken)
       const user_id = decodedToken.sub
 
-      const response = await fetch(`http://localhost:3000/api/users/${user_id}/savedrecipes/${recipeId}`, {
+      const response = await fetch(`${BACKEND_URL}/api/users/${user_id}/savedrecipes/${recipeId}`, {
         method: "DELETE",
       })
 
@@ -60,7 +63,7 @@ function SavedRecipesPage() {
       const decodedToken = jwtDecode(authToken)
       const user_id = decodedToken.sub
       console.log(recipeId)
-      const response = await fetch(`http://localhost:3000/api/users/${user_id}/getrecipeinfo/${recipeId}`)
+      const response = await fetch(`${BACKEND_URL}/api/users/${user_id}/getrecipeinfo/${recipeId}`)
 
       const data = await response.json();
       console.log('url:', data.sourceUrl);

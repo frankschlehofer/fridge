@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../utils/auth"; // Import the reusable login function
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+
 function SignUpPage() {
     const [newUserInfo, setUserInfo] = useState({
         name: '',
@@ -24,7 +26,7 @@ function SignUpPage() {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/api/auth/signup', {
+            const response = await fetch(`${BACKEND_URL}/api/auth/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom"
 import { jwtDecode } from "jwt-decode"
 import IngredientSelector from "../components/IngredientSelector"
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+
 const ExplorePage = () => {
   const [recipes, setRecipes] = useState([])
   const [currentRecipe, setCurrentRecipe] = useState(null)
@@ -29,7 +31,7 @@ const ExplorePage = () => {
       console.log("User ID from JWT:", user_id)
 
       // First fetch ingredients
-      fetch(`http://localhost:3000/api/users/${user_id}/fridgepage`)
+      fetch(`${BACKEND_URL}/api/users/${user_id}/fridgepage`)
         .then((response) => response.json())
         .then((ingredientsData) => {
           setIngredients(ingredientsData)
@@ -60,7 +62,7 @@ const ExplorePage = () => {
         body: JSON.stringify({ ingredientNames }),
       }
 
-      const endpoint = `http://localhost:3000/api/users/${user_id}/getrecipes`
+      const endpoint = `${BACKEND_URL}/api/users/${user_id}/getrecipes`
       const response = await fetch(endpoint, requestOptions)
       const data = await response.json()
 
@@ -107,7 +109,7 @@ const ExplorePage = () => {
       const decodedToken = jwtDecode(authToken)
       const user_id = decodedToken.sub
 
-      await fetch(`http://localhost:3000/api/users/${user_id}/saverecipe`, {
+      await fetch(`${BACKEND_URL}/api/users/${user_id}/saverecipe`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

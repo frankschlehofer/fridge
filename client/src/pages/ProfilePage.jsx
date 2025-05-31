@@ -5,6 +5,8 @@ import NavSideBar from "../components/NavSideBar"
 import { useNavigate } from "react-router-dom"
 import { jwtDecode } from "jwt-decode"
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+
 function ProfilePage() {
   const [userInfo, setUserInfo] = useState({
     name: "",
@@ -29,7 +31,7 @@ function ProfilePage() {
         console.log("User ID from JWT:", user_id)
 
         // Fetch user profile data
-        const userResponse = await fetch(`http://localhost:3000/api/users/${user_id}/profile`)
+        const userResponse = await fetch(`${BACKEND_URL}/api/users/${user_id}/profile`)
         if (userResponse.ok) {
           const userData = await userResponse.json()
           setUserInfo((prev) => ({
@@ -41,7 +43,7 @@ function ProfilePage() {
         }
 
         // Fetch ingredient count
-        const ingredientsResponse = await fetch(`http://localhost:3000/api/users/${user_id}/fridgepage`)
+        const ingredientsResponse = await fetch(`${BACKEND_URL}/api/users/${user_id}/fridgepage`)
         if (ingredientsResponse.ok) {
           const ingredientsData = await ingredientsResponse.json()
           setUserInfo((prev) => ({
