@@ -1,9 +1,11 @@
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+
 function RecipeCard({ recipe_id, name, user_id, image_path, usedIngredients, missedIngredients }) {
   // Function to save a recipe to the database
   const saveRecipe = async (recipe_id, user_id, name) => {
     try {
         console.log(recipe_id, user_id, name); // Log the recipe details for debugging
-        const response = await fetch(`http://localhost:3000/api/users/${user_id}/saverecipe`, {
+        const response = await fetch(`${BACKEND_URL}/api/users/${user_id}/saverecipe`, {
             method: 'POST', // Use POST method to send data to the server
             headers: {
                 'Content-Type': 'application/json' // Specify JSON format for the request body

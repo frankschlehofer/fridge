@@ -2,6 +2,8 @@
 
 import { useState } from "react"
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+
 export default function ImageUploadSection({ userId, onBulkAdd }) {
   const [selectedImage, setSelectedImage] = useState(null)
   const [imagePreview, setImagePreview] = useState(null)
@@ -65,7 +67,7 @@ export default function ImageUploadSection({ userId, onBulkAdd }) {
 
       console.log(selectedImage)
 
-      const response = await fetch("http://localhost:3000/api/parse-food-image", {
+      const response = await fetch(`${BACKEND_URL}/api/parse-food-image`, {
         method: "POST",
         body: formData,
       })
