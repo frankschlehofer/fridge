@@ -341,13 +341,12 @@ const ExplorePage = () => {
             <div className="text-center p-8 rounded-lg" style={{ backgroundColor: "var(--bg-card)" }}>
               <h2 className="text-2xl font-bold mb-4">No More Recipes</h2>
               <p className="mb-4">You've gone through all available recipes.</p>
-              <button
-                onClick={() => window.location.reload()}
+              <div
                 className="px-4 py-2 bg-primary text-white rounded hover:bg-opacity-90 transition-colors"
                 style={{ backgroundColor: "var(--primary)" }}
               >
-                Refresh
-              </button>
+                Try Updating your Used Ingredients and Click Search Recipes
+              </div>
             </div>
           )}
         </div>
