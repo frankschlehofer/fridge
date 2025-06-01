@@ -1,4 +1,4 @@
-import { pool } from '../../db/fridgedb.js';
+import { pool } from '../fridgedb.js';
 
 // @desc Get all ingredients for a specific user
 // @route GET /api/ingredients

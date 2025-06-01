@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import { pool } from '../../db/fridgedb.js'
+import { pool } from '../fridgedb.js'
 
 const saltRounds = 10
 const repeatUniqueCode = 23505;

@@ -1,4 +1,4 @@
-import { pool } from '../../db/fridgedb.js';
+import { pool } from '../fridgedb.js';
 
 const spoonacularAPIKey = process.env.SPOONACULAR_KEY;
 const maxRecipesReturned = 20;

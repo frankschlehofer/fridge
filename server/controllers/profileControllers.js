@@ -1,4 +1,4 @@
-import { pool } from '../../db/fridgedb.js'
+import { pool } from '../fridgedb.js'
 
 // @desc Get profile information for specified user
 // @route POST /api/users/:user_id/profile
