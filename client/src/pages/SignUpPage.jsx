@@ -45,6 +45,7 @@ function SignUpPage() {
                     console.log('username taken');
                     setRepeatUser(true);
                 }
+                setIsLoading(false)
                 return;
             }
             
