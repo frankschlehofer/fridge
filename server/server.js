@@ -16,6 +16,23 @@ const app = express();
 app.use(express.json()); // Parse incoming JSON requests
 app.use(express.urlencoded({ extended: false })); // Parse URL-encoded data
 
+const allowedOrigins = [
+    'http://localhost:8000', 
+    'https://frankies-fridge.netlify.app'
+];
+  
+app.use(cors({
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests) during development,
+      // or for server-to-server requests if applicable.
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    }
+ }));
+
 app.use(cors()); // Enable CORS for cross-origin requests
 
 // Middleware to log requests to the console
